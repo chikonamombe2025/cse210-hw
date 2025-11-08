@@ -6,31 +6,55 @@ class Program
     {
         Console.WriteLine("Hello World! This is the Exercise4 Project.");
 
-         Random randomGenerator = new Random();
-        int magicNumber = randomGenerator.Next(1, 101); // Random number between 1 and 100
+             List<int> numbers = new List<int>();
+        int input;
 
-        int guess = 0;
-        int numberOfGuesses = 0;
+        Console.WriteLine("Enter a list of numbers, type 0 when finished.");
 
-        // Loop until the guess is correct
-        while (guess != magicNumber)
+        // Step 2: Collect numbers from the user
+        do
         {
-            Console.Write("What is your guess? ");
-            guess = int.Parse(Console.ReadLine());
-            numberOfGuesses++;
+            Console.Write("Enter number: ");
+            input = int.Parse(Console.ReadLine());
 
-            if (guess < magicNumber)
+            if (input != 0) // Don't add 0 to the list
             {
-                Console.WriteLine("Higher");
+                numbers.Add(input);
             }
-            else if (guess > magicNumber)
+
+        } while (input != 0);
+
+        // Step 3: Calculate and display results
+        if (numbers.Count > 0)
+        {
+            // Calculate sum
+            int sum = 0;
+            foreach (var number in numbers)
             {
-                Console.WriteLine("Lower");
+                sum += number;
             }
-            else
+
+            // Calculate average
+            double average = (double)sum / numbers.Count;
+
+            // Find maximum
+            int max = numbers[0];
+            foreach (var number in numbers)
             {
-                Console.WriteLine($"You guessed it in {numberOfGuesses} guesses!");
+                if (number > max)
+                {
+                    max = number;
+                }
             }
+
+            // Display results
+            Console.WriteLine($"The sum is: {sum}");
+            Console.WriteLine($"The average is: {average}");
+            Console.WriteLine($"The largest number is: {max}");
+        }
+        else
+        {
+            Console.WriteLine("No numbers were entered.");
         }
     }
 }
