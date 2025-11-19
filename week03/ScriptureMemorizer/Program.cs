@@ -6,20 +6,26 @@ class Program
     {
         Console.WriteLine("Hello World! This is the ScriptureMemorizer Project.");
 
-        Console.WriteLine("Hello World! This is the ScriptureMemorizer Project.");
+       var reference = new Reference("John", 3, new List<int> { 16 });
+        var scripture = new Scripture(reference, "For God so loved the world that he gave his one and only Son");
 
-        Reference reference = new Reference("John", 3, 16);
-        string verseText = "For God so loved the world that he gave his one and only Son";
-        Scripture scripture = new Scripture(verseText, reference);
+        while (true)
+        {
+            Console.Clear();
+            scripture.Display();
+            Console.WriteLine("\nPress enter to hide a word or type 'quit' to exit:");
 
-        Console.WriteLine("Original Verse:");
-        Console.WriteLine(scripture.Display());
+            var input = Console.ReadLine();
+            if (input?.ToLower() == "quit")
+                break;
 
-        scripture.HideRandomWords(3);
-        Console.WriteLine("\nVerse with Hidden Words:");
-        Console.WriteLine(scripture.Display());
-
-        Console.WriteLine("\nReference:");
-        Console.WriteLine(scripture.GetReference());
+            if (!scripture.HideRandomWord())
+            {
+                Console.Clear();
+                scripture.Display();
+                Console.WriteLine("\nAll words are now hidden. Exiting...");
+                break;
+            }
+        }
     }
 }
